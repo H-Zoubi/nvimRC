@@ -42,3 +42,8 @@ vim.o.scrolloff = 15 -- TODO::Edit based on prefrence
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
+
+-- Enable folding based on Treesitter
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldlevel = 99 -- start with all folds open
