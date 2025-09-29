@@ -23,7 +23,7 @@ local function OpenFloatingWindow(opts)
 	local col = math.floor((vim.o.columns - width) / 2)
 
 	-- window options
-	local opts = {
+	local bufopts = {
 		style = "minimal",
 		relative = "editor",
 		width = width,
@@ -34,7 +34,7 @@ local function OpenFloatingWindow(opts)
 	}
 
 	-- open floating window
-	local win = vim.api.nvim_open_win(buf, true, opts)
+	local win = vim.api.nvim_open_win(buf, true, bufopts)
 	return { buf = buf, win = win }
 end
 

@@ -44,6 +44,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 -- Enable folding based on Treesitter
+-- vim.opt.foldmethod = "syntax"
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 vim.o.foldlevel = 99 -- start with all folds open
