@@ -4,6 +4,7 @@ vim.g.maplocalleader = " "
 vim.g.have_nerd_font = false
 
 vim.o.number = true
+vim.o.relativenumber = true
 
 vim.o.mouse = "a"
 
@@ -37,14 +38,13 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 vim.o.inccommand = "split"
 vim.o.cursorline = true
-vim.o.scrolloff = 15 -- TODO::Edit based on prefrence
+vim.o.scrolloff = 25 -- TODO::Edit based on prefrence
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 -- Enable folding based on Treesitter
--- vim.opt.foldmethod = "syntax"
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 vim.o.foldlevel = 99 -- start with all folds open

@@ -1,4 +1,9 @@
 return {
+    {
+        "mg979/vim-visual-multi",
+        branch = "master",
+        event = "VeryLazy",  -- loads on first use
+    },
 	{
 		"numToStr/Comment.nvim",
 		config = function()

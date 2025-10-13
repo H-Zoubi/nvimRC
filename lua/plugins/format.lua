@@ -1,24 +1,32 @@
+-- ~/.config/nvim/lua/plugins/conform.lua
 return {
 	"stevearc/conform.nvim",
-	event = { "BufReadPre", "BufNewFile" },
-	config = function()
-		require("conform").setup({
-			formatters_by_ft = {
-				lua = { "stylua" },
-				python = { "black" },
-				javascript = { "prettier" },
-				-- add more filetypes and formatters here
-			},
-		})
+	opts = {
+		format_on_save = false, -- disabled to prevent reverts
 
-		require("conform").setup({
-			format_on_save = {
-				timeout_ms = 500,
-				lsp_fallback = true,
+		formatters_by_ft = {
+			c = { "clang-format" },
+			cpp = { "clang-format" },
+		},
+
+		formatters = {
+			["clang-format"] = {
+				args = {
+					"--style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, PointerAlignment: Left, ReferenceAlignment: Left, NamespaceIndentation: All, ColumnLimit: 0, SkipMacroDefinitionBody: true, MaxEmptyLinesToKeep: 1, SeparateDefinitionBlocks: Leave}",
+					"$FILENAME",
+				},
 			},
-			formatters_by_ft = {
-				lua = { "stylua" },
-			},
-		})
+		},
+	},
+
+	config = function(_, opts)
+		require("conform").setup(opts)
+
+		vim.api.nvim_set_keymap(
+			"n", -- normal mode
+			"<leader>F",
+			"<cmd>lua require('conform').format()<CR>",
+			{ noremap = true, silent = true }
+		)
 	end,
 }
