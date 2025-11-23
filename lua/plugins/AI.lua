@@ -1,0 +1,15 @@
+-- lua/config/ai.lua
+return {}
+--   {
+--     "Exafunction/codeium.nvim",
+--     event = "BufEnter",
+--     dependencies = { "nvim-lua/plenary.nvim" },
+--     config = function()
+--       require("codeium").setup({
+--         enable_chat = false,
+--         enable_cmp_source = false,        -- disable popup completions
+--         enable_inline_completion = true,  -- enable gray ghost text
+--       })
+--     end,
+--   },
+-- }

@@ -19,3 +19,4 @@ require("config.lazy")
 require("config.termnl")
 
 require("keymaps")
+
