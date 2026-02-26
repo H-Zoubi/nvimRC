@@ -103,9 +103,29 @@ local M = {
 vim.keymap.set({ "n", "t" }, "<C-t>", ToggleTerminal, { desc = "Toggle floating terminal" })
 
 
+-- Detect project type and return the appropriate run command
+local function get_run_command()
+  local cwd = vim.fn.getcwd()
+  if vim.fn.filereadable(cwd .. "/platformio.ini") == 1 then
+    return "pio run -t upload"
+  elseif vim.fn.filereadable(cwd .. "/premake5.lua") == 1 then
+    -- C++ premake project: generate makefiles, build, then run the produced binary
+    return "premake5 gmake2 && make -j$(nproc) && BIN=$(find bin/ -maxdepth 2 -type f -executable 2>/dev/null | head -1) && [ -n \"$BIN\" ] && \"$BIN\" || echo 'Build succeeded but no executable found in bin/'"
+  elseif vim.fn.filereadable(cwd .. "/main.py") == 1 then
+    return "python3 main.py"
+  else
+    return nil
+  end
+end
+
 vim.keymap.set("n", "<leader>rp", function()
-  ToggleTerminal("pio run -tupload")
-end, { desc = "Toggle floating terminal and run: pio run" })
+  local cmd = get_run_command()
+  if cmd then
+    ToggleTerminal(cmd)
+  else
+    vim.notify("No recognized project type found (no platformio.ini, premake5.lua, or main.py)", vim.log.levels.WARN)
+  end
+end, { desc = "Run project (auto-detect: cpp/python/pio)" })
 
 
 vim.keymap.set("n", "<leader>bp", function()
