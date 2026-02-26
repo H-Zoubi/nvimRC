@@ -42,6 +42,13 @@ return {
 
 			-- Enable the clangd config for C, C++, and Objective-C filetypes
 			vim.lsp.enable("clangd")
+
+			-- --- PYRIGHT SETUP (Python) ---
+			vim.lsp.config("pyright", {
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
+			vim.lsp.enable("pyright")
 		end,
 	},
 }
