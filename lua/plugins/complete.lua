@@ -25,13 +25,14 @@ return {
 
 				mapping = cmp.mapping.preset.insert({
 					["<C-y>"] = cmp.mapping(function(fallback)
-						if vim.fn.exists("*copilot#Visible") == 1 then
-							local ok_visible, copilot_visible = pcall(vim.fn["copilot#Visible"])
-							if ok_visible and copilot_visible == 1 then
-								-- Copilot's API expects fallback text; "<CR>" is returned when no suggestion is available.
-								local ok_accept, copilot_accept = pcall(vim.fn["copilot#Accept"], "<CR>")
-								if ok_accept and type(copilot_accept) == "string" then
-									local keys = vim.api.nvim_replace_termcodes(copilot_accept, true, true, true)
+						local ok_visible, copilot_visible = pcall(vim.fn["copilot#Visible"])
+						if ok_visible and copilot_visible == 1 then
+							-- Copilot's API expects fallback text and returns "<CR>" when no suggestion exists.
+							local ok_accept, copilot_accept = pcall(vim.fn["copilot#Accept"], "<CR>")
+							if ok_accept and type(copilot_accept) == "string" then
+								local keys = vim.api.nvim_replace_termcodes(copilot_accept, true, true, true)
+								local fallback_cr = vim.api.nvim_replace_termcodes("<CR>", true, true, true)
+								if keys ~= fallback_cr then
 									vim.api.nvim_feedkeys(keys, "n", false)
 									return
 								end
