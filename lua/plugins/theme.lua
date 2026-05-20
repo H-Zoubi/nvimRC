@@ -1,19 +1,24 @@
 return {
 	{ 
-		"ellisonleao/gruvbox.nvim",
+		"folke/tokyonight.nvim",
 		priority = 1000 ,
 		config = function()
-			vim.o.background = "dark" -- or "light" for light mode
-			vim.cmd("colorscheme gruvbox")
+			vim.o.background = "dark"
+			vim.cmd("colorscheme tokyonight-night")
 		end, 
-		opts = ...
+		opts = {
+			style = "night",
+		},
 	},
 	{
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config= function()
-	require('lualine').setup()
+	require('lualine').setup({
+		options = {
+			theme = "tokyonight",
+		},
+	})
     end,
     },
 }
-

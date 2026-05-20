@@ -1,4 +1,18 @@
 return {
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("which-key").setup({})
+		end,
+	},
+	{
+		"kylechui/nvim-surround",
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({})
+		end,
+	},
     {
         "mg979/vim-visual-multi",
         branch = "master",

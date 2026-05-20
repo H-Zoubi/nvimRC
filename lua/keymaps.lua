@@ -8,8 +8,6 @@ vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" 
 vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[F]ind [K]eymaps" }) -- find in keymaps
 vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" }) -- find in diagnosticls
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" }) -- fin in help / docs
-vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
-
 vim.keymap.set("n", "<C-b>", "<C-^>", { desc = "Go to previous buffer" })
 vim.keymap.set("n", "<leader>e", function()
 	vim.diagnostic.open_float()
@@ -39,7 +37,7 @@ local function ensure_cpp_exists()
 end
 
 -- Visual-mode mapping: create cpp if missing, then run Treesitter command
-vim.keymap.set("v", "<leader>gm", function()
+vim.keymap.set("v", "<leader>cm", function()
 	-- Ensure .cpp file exists
 	local cpp_file = ensure_cpp_exists()
 
@@ -55,7 +53,7 @@ vim.keymap.set("v", "<leader>gm", function()
 end, { noremap = true, silent = true, desc = "Generate C++ funcs and open cpp" })
 
 -- Normal-mode mapping: generate functions for the class under cursor
-vim.keymap.set("n", "<leader>gm", function()
+vim.keymap.set("n", "<leader>cm", function()
 	-- Ensure cpp file exists first
 	local cpp_file = ensure_cpp_exists()
 
