@@ -18,15 +18,15 @@ local function find_all_files()
 end
 
 vim.keymap.set("n", "<leader>ff", find_all_files, { desc = "Telescope find all files" }) -- find all files
-vim.keymap.set("n", "<leader>gr", builtin.lsp_references, { desc = "Telescope find refrences" }) -- find files
+vim.keymap.set("n", "<leader>gr", builtin.lsp_references, { desc = "Telescope find references" }) -- find files
 vim.keymap.set("n", "<leader>fg", find_git_files, { desc = "Telescope find git files" }) -- find git files
 vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "Telescope find symbols" }) -- find symbols
 vim.keymap.set("n", "<leader>fS", builtin.live_grep, { desc = "Telescope find string" }) -- find string in files
 vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "grep string" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" }) -- find in currently open buffers
 vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[F]ind [K]eymaps" }) -- find in keymaps
-vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" }) -- find in diagnosticls
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" }) -- fin in help / docs
+vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" }) -- find in diagnostics
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" }) -- find in help / docs
 vim.keymap.set("n", "<C-b>", "<C-^>", { desc = "Go to previous buffer" })
 vim.keymap.set("n", "<leader>e", function()
 	vim.diagnostic.open_float()
