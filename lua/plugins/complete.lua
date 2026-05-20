@@ -16,7 +16,6 @@ return {
 		},
 		config = function()
 			local cmp = require("cmp")
-			local has_copilot_visible = vim.fn.exists("*copilot#Visible") == 1
 
 			-- Minimal recommended Neovim option
 			vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -26,8 +25,8 @@ return {
 
 				mapping = cmp.mapping.preset.insert({
 					["<C-y>"] = cmp.mapping(function(fallback)
-						if has_copilot_visible and vim.fn["copilot#Visible"]() == 1 then
-							-- Copilot uses "<CR>" as an API accept token.
+						if vim.fn.exists("*copilot#Visible") == 1 and vim.fn["copilot#Visible"]() == 1 then
+							-- Copilot's API expects fallback text; "<CR>" is returned when no suggestion is available.
 							vim.api.nvim_feedkeys(vim.fn["copilot#Accept"]("<CR>"), "i", true)
 							return
 						end
