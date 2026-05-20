@@ -1,8 +1,27 @@
 -- Telescope
 local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" }) -- find files
+
+local function find_git_files()
+	local ok = pcall(builtin.git_files)
+	if not ok then
+		builtin.find_files()
+	end
+end
+
+local function find_all_files()
+	builtin.find_files({
+		hidden = true,
+		no_ignore = true,
+		no_ignore_parent = true,
+		follow = true,
+	})
+end
+
+vim.keymap.set("n", "<leader>ff", find_all_files, { desc = "Telescope find all files" }) -- find all files
 vim.keymap.set("n", "<leader>gr", builtin.lsp_references, { desc = "Telescope find refrences" }) -- find files
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" }) -- find word / string in files
+vim.keymap.set("n", "<leader>fg", find_git_files, { desc = "Telescope find git files" }) -- find git files
+vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "Telescope find symbols" }) -- find symbols
+vim.keymap.set("n", "<leader>fS", builtin.live_grep, { desc = "Telescope find string" }) -- find string in files
 vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "grep string" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" }) -- find in currently open buffers
 vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[F]ind [K]eymaps" }) -- find in keymaps
