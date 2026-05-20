@@ -1,11 +1,6 @@
 -- lua/config/completion.lua
 
 return {
-    {
-        "github/copilot.vim",
-        config = function ()
-        end
-    },
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {

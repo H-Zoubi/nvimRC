@@ -14,6 +14,14 @@ return {
 
 				map("n", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 				map("n", "K", vim.lsp.buf.hover, "Hover Documentation")
+				map("n", "<leader>cD", vim.lsp.buf.declaration, "[C]ode [D]eclaration")
+				map("n", "<leader>cr", vim.lsp.buf.references, "[C]ode [R]eferences")
+				map("n", "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+				map("n", "<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame Symbol")
+
+				if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+					vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+				end
 			end
 
 			-- --- LUA_LS SETUP (Existing) ---
@@ -34,10 +42,21 @@ return {
 			vim.lsp.config("clangd", {
 				capabilities = capabilities,
 				on_attach = on_attach,
-				-- Clangd needs a compile_commands.json file for large projects
-				-- You typically generate this using a tool like CMake.
-				-- If you see errors, make sure you have a compile_commands.json file
-				-- in your project root or use a build tool to generate one.
+				filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+				cmd = {
+					"clangd",
+					"--background-index",
+					"--clang-tidy",
+					"--completion-style=detailed",
+					"--header-insertion=iwyu",
+					"--function-arg-placeholders",
+					"--fallback-style=llvm",
+				},
+				init_options = {
+					clangdFileStatus = true,
+					usePlaceholders = true,
+					completeUnimported = true,
+				},
 			})
 
 			-- Enable the clangd config for C, C++, and Objective-C filetypes
