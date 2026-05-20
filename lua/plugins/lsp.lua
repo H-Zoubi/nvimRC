@@ -14,7 +14,7 @@ return {
 
 				map("n", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 				map("n", "K", vim.lsp.buf.hover, "Hover Documentation")
-				map("n", "<leader>cd", vim.lsp.buf.declaration, "[C]ode [D]eclaration")
+				map("n", "<leader>cD", vim.lsp.buf.declaration, "[C]ode [D]eclaration")
 				map("n", "<leader>cr", vim.lsp.buf.references, "[C]ode [R]eferences")
 				map("n", "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 				map("n", "<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame Symbol")

@@ -50,7 +50,7 @@ vim.keymap.set("v", "<leader>cm", function()
 
 	-- Open the cpp file in current window after generating
 	vim.cmd("edit " .. cpp_file)
-end, { noremap = true, silent = true, desc = "Generate C++ funcs and open cpp" })
+end, { noremap = true, silent = true, desc = "[C]ode Generate [M]ethods" })
 
 -- Normal-mode mapping: generate functions for the class under cursor
 vim.keymap.set("n", "<leader>cm", function()
@@ -62,4 +62,4 @@ vim.keymap.set("n", "<leader>cm", function()
 
 	-- Open the cpp file in the current window
 	vim.cmd("edit " .. cpp_file)
-end, { noremap = true, silent = true, desc = "Generate C++ funcs for current class and open cpp" })
+end, { noremap = true, silent = true, desc = "[C]ode Generate [M]ethods" })
