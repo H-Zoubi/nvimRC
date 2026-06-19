@@ -1,24 +1,23 @@
 return {
-	{ 
-		"folke/tokyonight.nvim",
-		priority = 1000 ,
-		config = function()
-			vim.o.background = "dark"
-			vim.cmd("colorscheme tokyonight-night")
-		end, 
-		opts = {
-			style = "night",
-		},
-	},
-	{
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config= function()
-	require('lualine').setup({
-		options = {
-			theme = "tokyonight",
-		},
-	})
-    end,
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "tokyonight-night",
     },
+  },
+  {
+    "folke/tokyonight.nvim",
+    opts = {
+      style = "night",
+    },
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = function(_, opts)
+      opts = opts or {}
+      opts.options = opts.options or {}
+      opts.options.theme = "tokyonight"
+      return opts
+    end,
+  },
 }

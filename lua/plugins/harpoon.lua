@@ -1,40 +1,67 @@
 return {
-	"ThePrimeagen/harpoon",
-	branch = "harpoon2",
-	dependencies = { "nvim-lua/plenary.nvim" },
-	config = function()
-		local harpoon = require("harpoon")
-
-		-- REQUIRED
-		harpoon:setup()
-		-- REQUIRED
-
-		vim.keymap.set("n", "<leader>a", function()
-			harpoon:list():add()
-		end)
-		vim.keymap.set("n", "<C-e>", function()
-			harpoon.ui:toggle_quick_menu(harpoon:list())
-		end)
-
-		vim.keymap.set("n", "<M-y>", function()
-			harpoon:list():select(1)
-		end)
-		vim.keymap.set("n", "<M-u>", function()
-			harpoon:list():select(2)
-		end)
-		vim.keymap.set("n", "<M-i>", function()
-			harpoon:list():select(3)
-		end)
-		vim.keymap.set("n", "<M-o>", function()
-			harpoon:list():select(4)
-		end)
-
-		-- Toggle previous & next buffers stored within Harpoon list
-		vim.keymap.set("n", "<C-S-P>", function()
-			harpoon:list():prev()
-		end)
-		vim.keymap.set("n", "<C-S-N>", function()
-			harpoon:list():next()
-		end)
-	end,
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {},
+    keys = {
+      {
+        "<leader>a",
+        function()
+          require("harpoon"):list():add()
+        end,
+        desc = "Harpoon add file",
+      },
+      {
+        "<C-e>",
+        function()
+          local harpoon = require("harpoon")
+          harpoon.ui:toggle_quick_menu(harpoon:list())
+        end,
+        desc = "Harpoon menu",
+      },
+      {
+        "<M-y>",
+        function()
+          require("harpoon"):list():select(1)
+        end,
+        desc = "Harpoon file 1",
+      },
+      {
+        "<M-u>",
+        function()
+          require("harpoon"):list():select(2)
+        end,
+        desc = "Harpoon file 2",
+      },
+      {
+        "<M-i>",
+        function()
+          require("harpoon"):list():select(3)
+        end,
+        desc = "Harpoon file 3",
+      },
+      {
+        "<M-o>",
+        function()
+          require("harpoon"):list():select(4)
+        end,
+        desc = "Harpoon file 4",
+      },
+      {
+        "<C-S-P>",
+        function()
+          require("harpoon"):list():prev()
+        end,
+        desc = "Harpoon previous",
+      },
+      {
+        "<C-S-N>",
+        function()
+          require("harpoon"):list():next()
+        end,
+        desc = "Harpoon next",
+      },
+    },
+  },
 }
