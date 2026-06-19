@@ -6,7 +6,24 @@ local function del(mode, lhs)
   pcall(vim.keymap.del, mode, lhs)
 end
 
-for _, key in ipairs({ "<leader>e", "<leader>q", "<leader>ff", "<leader>fg", "<leader>fs", "<leader>fb", "<leader>fk", "<leader>fd", "<leader>fh", "<C-h>", "<C-j>", "<C-k>", "<C-l>", "<C-b>" }) do
+local default_conflicts = {
+  "<leader>e",
+  "<leader>q",
+  "<leader>ff",
+  "<leader>fg",
+  "<leader>fs",
+  "<leader>fb",
+  "<leader>fk",
+  "<leader>fd",
+  "<leader>fh",
+  "<C-h>",
+  "<C-j>",
+  "<C-k>",
+  "<C-l>",
+  "<C-b>",
+}
+
+for _, key in ipairs(default_conflicts) do
   del("n", key)
 end
 
@@ -50,7 +67,7 @@ map("n", "<leader>fS", function()
 end, { desc = "Telescope find string" })
 map("n", "<leader>fw", function()
   require("telescope.builtin").grep_string()
-end, { desc = "Grep string" })
+end, { desc = "Telescope grep string" })
 map("n", "<leader>fb", function()
   require("telescope.builtin").buffers()
 end, { desc = "Telescope buffers" })
@@ -97,13 +114,13 @@ map("n", "<leader>cm", function()
 end, { noremap = true, silent = true, desc = "Code generate methods" })
 
 local terminal = require("config.termnl")
-map({ "n", "t" }, "<C-t>", terminal.ToggleTerminal, { desc = "Toggle floating terminal" })
-map("n", "<leader>rp", terminal.RunDetectedProject, { desc = "Run project (auto-detect)" })
+map({ "n", "t" }, "<C-t>", terminal.toggle_terminal, { desc = "Toggle floating terminal" })
+map("n", "<leader>rp", terminal.run_detected_project, { desc = "Run project (auto-detect)" })
 map("n", "<leader>bp", function()
-  terminal.ToggleTerminal("./run")
+  terminal.toggle_terminal("./run")
 end, { desc = "Run ./run in floating terminal" })
 map("n", "<leader>sm", function()
-  terminal.ToggleTerminal("pio device monitor -b115200")
+  terminal.toggle_terminal("pio device monitor -b115200")
 end, { desc = "Run serial monitor" })
 
 vim.api.nvim_create_autocmd("LspAttach", {

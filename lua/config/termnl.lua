@@ -93,6 +93,6 @@ local function run_detected_project()
 end
 
 return {
-  ToggleTerminal = toggle_terminal,
-  RunDetectedProject = run_detected_project,
+  toggle_terminal = toggle_terminal,
+  run_detected_project = run_detected_project,
 }
