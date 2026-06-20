@@ -19,9 +19,6 @@ return {
 				map("n", "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 				map("n", "<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame Symbol")
 
-				if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-					vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-				end
 			end
 
 			-- --- LUA_LS SETUP (Existing) ---
