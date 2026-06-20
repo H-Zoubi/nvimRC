@@ -24,7 +24,12 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require("lazy").setup({
 	spec = {
-		-- import your plugins
+		{
+			"NvChad/NvChad",
+			branch = "v2.5",
+			lazy = false,
+			import = "nvchad.plugins",
+		},
 		{ import = "plugins" },
 	},
 	change_detection = { notify = false },
