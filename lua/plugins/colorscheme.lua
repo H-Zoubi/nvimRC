@@ -1,14 +1,30 @@
 return {
-  "loctvl842/monokai-pro.nvim",
-  lazy = false, -- colorscheme plugins must load eagerly; priority alone doesn't do it
+  "catppuccin/nvim",
+  name = "catppuccin",
+  lazy = false,
   priority = 1000,
   opts = {
-    -- "spectrum" gives each token category (types, keywords, functions,
-    -- strings, numbers, ...) its own distinct hue instead of sharing colors
-    filter = "spectrum", -- pro | octagon | machine | ristretto | spectrum | classic
+    flavour = "mocha",
+    background = {
+      light = "latte",
+      dark = "mocha",
+    },
+    integrations = {
+      cmp = true,
+      gitsigns = true,
+      nvimtree = true,
+      treesitter = true,
+      telescope = {
+        enabled = true,
+      },
+      native_lsp = {
+        enabled = true,
+      },
+    },
   },
   config = function(_, opts)
-    require("monokai-pro").setup(opts)
-    vim.cmd.colorscheme("monokai-pro")
+    require("catppuccin").setup(opts)
+    vim.o.background = "dark"
+    vim.cmd.colorscheme("catppuccin")
   end,
 }

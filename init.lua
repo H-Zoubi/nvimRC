@@ -24,7 +24,7 @@ require("lazy").setup({
     { import = "plugins" },
   },
   defaults = { lazy = true },
-  install = { colorscheme = { "monokai-pro" } },
+  install = { colorscheme = { "catppuccin" } },
   checker = { enabled = true, notify = false },
   change_detection = { notify = false },
   performance = {

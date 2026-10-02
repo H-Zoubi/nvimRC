@@ -1,3 +1,6 @@
+local cpp_style = require("config.cpp_style")
+local xtensa_driver = vim.fn.expand("~/.platformio/packages/toolchain-xtensa-esp32s3/bin/xtensa-esp32s3-elf-g++.exe")
+
 -- Uses Neovim's native LSP config API (vim.lsp.config/vim.lsp.enable,
 -- 0.11+) rather than the deprecated require('lspconfig').<server>.setup{}
 -- pattern -- nvim-lspconfig now only supplies the per-server default
@@ -95,7 +98,11 @@ return {
           "--header-insertion=iwyu",
           "--completion-style=detailed",
           "--function-arg-placeholders",
-          "--fallback-style=llvm",
+          "--fallback-style=" .. cpp_style,
+          "--query-driver=" .. xtensa_driver,
+        },
+        cmd_env = {
+          PATH = vim.fn.fnamemodify(xtensa_driver, ":h") .. ";" .. (vim.env.PATH or ""),
         },
       })
 

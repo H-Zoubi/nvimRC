@@ -11,7 +11,7 @@ opt.cursorline = true
 opt.signcolumn = "yes"
 opt.termguicolors = true
 opt.wrap = false
-opt.scrolloff = 8
+opt.scrolloff = 999
 opt.sidescrolloff = 8
 opt.splitright = true
 opt.splitbelow = true
@@ -27,6 +27,22 @@ opt.expandtab = true
 opt.shiftwidth = 4
 opt.tabstop = 4
 opt.softtabstop = 4
+-- Apply four-column indentation after filetype plugins; Makefiles keep hard tabs.
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("FourColumnIndent", { clear = true }),
+  callback = function(event)
+    vim.schedule(function()
+      if not vim.api.nvim_buf_is_valid(event.buf) then
+        return
+      end
+      local buf = event.buf
+      vim.bo[buf].tabstop = 4
+      vim.bo[buf].shiftwidth = 4
+      vim.bo[buf].softtabstop = 4
+      vim.bo[buf].expandtab = vim.bo[buf].filetype ~= "make"
+    end)
+  end,
+})
 opt.smartindent = true
 opt.ignorecase = true
 opt.smartcase = true

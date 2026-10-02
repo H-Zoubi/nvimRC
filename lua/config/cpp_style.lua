@@ -1,0 +1,2 @@
+-- Microsoft Visual Studio-like C++ style with Hamza's pointer and indent preferences.
+return "{BasedOnStyle: Microsoft, UseTab: Never, IndentWidth: 4, TabWidth: 4, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 0, PointerAlignment: Left, DerivePointerAlignment: false}"

@@ -1,3 +1,5 @@
+local cpp_style = require("config.cpp_style")
+
 return {
   "stevearc/conform.nvim",
   event = { "BufWritePre" },
@@ -13,13 +15,14 @@ return {
     },
   },
   opts = {
+    formatters = {
+      clang_format = { prepend_args = { "--style=" .. cpp_style } },
+      stylua = { prepend_args = { "--indent-type", "Spaces", "--indent-width", "4" } },
+      cmake_format = { prepend_args = { "--tab-size", "4" } },
+    },
     notify_on_error = false,
-    format_on_save = function(bufnr)
-      local disable_ft = { c = true, cpp = true } -- clang-format can be slow/opinionated; format on demand instead
-      if disable_ft[vim.bo[bufnr].filetype] then
-        return nil
-      end
-      return { timeout_ms = 1000, lsp_format = "fallback" }
+    format_on_save = function(_bufnr)
+      return { timeout_ms = 2000, lsp_format = "fallback" }
     end,
     formatters_by_ft = {
       c = { "clang_format" },

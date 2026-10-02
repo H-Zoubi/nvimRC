@@ -7,6 +7,15 @@ return {
   build = ":TSUpdate",
   lazy = false, -- this plugin does not support lazy-loading
   config = function()
+    -- tree-sitter-cli shells out to MSVC's cl.exe on Windows and does not
+    -- fall back to any other compiler; with no MSVC install every parser
+    -- build dies with "program not found". Point it at the MinGW gcc on
+    -- PATH instead. The UCRT MinGW build matches the runtime the MSVC-built
+    -- Neovim uses, so the resulting parsers load cleanly.
+    if vim.fn.has("win32") == 1 and vim.env.CC == nil and vim.fn.executable("gcc") == 1 then
+      vim.env.CC = "gcc"
+    end
+
     local ensure_installed = {
       "c",
       "cpp",
