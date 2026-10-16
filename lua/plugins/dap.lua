@@ -72,6 +72,25 @@ return {
         type = "codelldb",
         request = "launch",
         program = function()
+          local root = vim.fs.root(0, "premake5.lua")
+          local makefile = root and (root .. "/build/n-body.make")
+          if makefile and vim.fn.filereadable(makefile) == 1 then
+            local in_debug, targetdir, target = false, nil, nil
+            for _, line in ipairs(vim.fn.readfile(makefile)) do
+              if line == "ifeq ($(config),debug)" then
+                in_debug = true
+              elseif in_debug and line:match("^else") then
+                break
+              elseif in_debug then
+                targetdir = line:match("^TARGETDIR%s*=%s*(.+)$") or targetdir
+                target = line:match("^TARGET%s*=%s*(.+)$") or target
+              end
+            end
+            if targetdir and target then
+              local relative = target:gsub("%$%(TARGETDIR%)", targetdir)
+              return vim.fn.fnamemodify(root .. "/build/" .. relative, ":p")
+            end
+          end
           return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/build/", "file")
         end,
         cwd = "${workspaceFolder}",

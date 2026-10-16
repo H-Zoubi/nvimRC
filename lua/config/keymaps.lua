@@ -53,8 +53,23 @@ map("v", ">", ">gv", { desc = "Indent right" })
 map("n", "]q", "<cmd>cnext<CR>", { desc = "Next quickfix item" })
 map("n", "[q", "<cmd>cprev<CR>", { desc = "Previous quickfix item" })
 
--- netrw (Lexplore toggles a left-side sidebar, same shape as <leader>e)
-map("n", "<M-e>", "<cmd>Lexplore<CR>", { desc = "Toggle netrw" })
+-- netrw: keep one explorer sidebar per tabpage.  Raw :Lexplore can reuse an
+-- existing netrw window; tracking its window ID on the tab keeps Alt-e local,
+-- like a file-tree plugin.
+local function toggle_netrw()
+  local netrw_win = vim.t.netrw_winid
+
+  if netrw_win and vim.api.nvim_win_is_valid(netrw_win) then
+    vim.api.nvim_win_close(netrw_win, false)
+    vim.t.netrw_winid = nil
+    return
+  end
+
+  vim.cmd("Lexplore")
+  vim.t.netrw_winid = vim.api.nvim_get_current_win()
+end
+
+map("n", "<M-e>", toggle_netrw, { desc = "Toggle tab-local netrw" })
 
 -- Double-Esc exits terminal mode (replaces the awkward default <C-\><C-n>).
 -- A single Esc still passes through to whatever's running in the terminal.
@@ -64,4 +79,3 @@ map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
 map("n", "<leader>xd", vim.diagnostic.open_float, { desc = "Line diagnostics" })
-map("n", "<leader>lo", "<cmd>LlamaToggleAutoFim<CR>", { desc = "Toggle local AI autocomplete" })
